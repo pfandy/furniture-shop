@@ -1,0 +1,858 @@
+@charset "UTF-8";
+
+/* --------------------------------------------
+  Common
+-------------------------------------------- */
+
+@import "_variables.scss";
+
+/* font-size */
+
+html {
+  font-size: 16px;
+}
+h1 {
+  font-size: calc(40px + (61.04 - 40) * (100vw - 320px) / (500 - 320));
+
+  @media screen and (min-width: 500px) {
+    font-size: $f3;
+  }
+}
+h2 {
+  font-size: $f6;
+}
+h3 {
+  font-size: $f6;
+}
+h4 {
+  font-size: $f6;
+}
+h5 {
+  font-size: $f7;
+}
+h6 {
+  font-size: $f8;
+}
+
+/* font-family */
+
+* {
+  font-family: $noto-sans;
+}
+
+/* background-color */
+body {
+  background: $c1;
+}
+
+/* hover */
+a {
+  @include transition(color, .15s);
+
+  &:hover {
+    color: $c6!important;
+  }
+}
+
+/* --------------------------------------------
+each part
+-------------------------------------------- */
+
+header {
+  width: 100%;
+  height: 100px;
+  background: transparent;
+  position: fixed;
+  z-index: 10;
+  
+  @include transition((height, background-color), .3s);
+
+  .align-wide {
+    margin: 0;
+    padding: 0 15px;
+
+    @media #{$mq-pc} {
+      margin: 0 calc((100% - #{$bp-pc}px) / 4);
+    }
+
+    #h-logo {
+      margin-top: calc(35px + (30 - 35) * (100vw - 320px) / (450 - 320));
+
+      @include transition(margin-top, .3s);
+
+      @media #{$mq-sp} {
+        margin-top: 30px;
+      }
+
+      @include logo;
+
+      span {
+        @include transition(color, .15s);
+      }
+    }
+    #hamburger-button {
+      width: 32px;
+      height: 30px;
+      position: relative;
+      margin-top: 35px;
+      float: right;
+
+      @include transition(margin-top, .3s);
+
+      span {
+        display: inline-block;
+        width: 100%;
+        height: 6px;
+        position: absolute;
+        background: #fff;
+        
+        @include transition(background, .15s);
+
+        &:nth-of-type(1) {
+          top: 0;
+        }
+        &:nth-of-type(2) {
+          top: 12px;
+        }
+        &:nth-of-type(3) {
+          bottom: 0;
+        }
+      }
+      &:hover span {
+        background: $c6!important;
+      }
+    }
+  }
+  &.scrolled {
+    height: 70px;
+    background: rgba(255, 255, 255, .8);
+
+    .align-wide #h-logo {
+      margin-top: calc(20px + (15 - 20) * (100vw - 320px) / (450 - 320));
+      color: #000;
+
+      @media #{$mq-sp} {
+        margin-top: 15px;
+      }
+    }
+    .align-wide #hamburger-button {
+      margin-top: 20px;
+
+      span {
+        background: #000;
+      }
+    }
+  }
+}
+
+#hamburger-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 150;
+  width: 65%;
+  min-height: 100vh;
+  background-color: $c3;
+  transform: translateX(100%);
+  padding: 70px 0 0 50px;
+
+  @include transition(all, .3s, ease-in-out);
+
+  .close-button {
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 15px;
+
+    span {
+      display: inline-block;
+      width: 100%;
+      height: 2px;
+      background-color: #fff;
+      position: absolute;
+      left: 0;
+      transform-origin: center;
+      
+      @include transition(background-color, .15s);
+
+      &:nth-of-type(1) {
+        transform: rotate(45deg);
+        top: 18px;
+      }
+      &:nth-of-type(2) {
+        transform: rotate(-45deg);
+        bottom: 18px;
+      }
+    }
+
+    &:hover span {
+      background-color: $c6;
+    }
+  }
+  ul {
+    width: 100%;
+
+    li {
+      display: block;
+      overflow: hidden;
+      font-size: $f7;
+      line-height: 1.4;
+      overflow: hidden;
+
+      @media #{$mq-sp} {
+        font-size: calc(#{$f7} + (#{($f3 - $f7) * 1.6 / 1rem}) * (100vw - #{$bp-sp}px) / (#{$bp-pc - $bp-sp}));
+      }
+
+      a {
+        display: inline-block;
+        font-size: $f7;
+        position: relative;
+        transform: translateY(100%);
+
+        @include transition(transform, .15s, ease-in-out);
+
+        @media #{$mq-sp} {
+          font-size: calc(#{$f7} + (#{($f3 - $f7) * 1.6 / 1rem}) * (100vw - #{$bp-sp}px) / (#{$bp-pc - $bp-sp}));
+        }
+
+        &::before {
+          position: relative;
+          content: "MENU";
+          color: #fff;
+        }
+        .menu-mask {
+          display: inline-block;
+          color: #fff;
+          overflow: hidden;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 100%;
+          background-color: $c3;
+
+
+          @include transition(all, .15s);
+
+          .menu-text {
+            color: $c6;
+          }
+        }
+
+        &:hover {
+          color: #fff;
+
+          .menu-mask {
+            right: 0;
+
+            .menu-text {
+              color: $c6;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#top {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100vh;
+    visibility:  visible;
+
+    @include bg-image("01");
+  }
+
+  h1 {
+    color: #fff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @include transition(top, .3s);
+  }
+  .scroll-text {
+    color: #fff;
+    font-weight: bold;
+    display: inline-block;
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    transform: rotate(-90deg);
+    cursor: pointer;
+    transform-origin: left;
+
+    @include transition(top, .3s);
+
+    &:hover {
+      color: #fff!important;
+    }
+  }
+  .scroll-arrow {
+    display: inline-block;
+    width: 50px;
+    height: 14px;
+    position: fixed;
+    top: calc(75% + 70px);
+    left: calc(50% - 6px);
+    transform: rotate(-90deg);
+    transform-origin: left;
+
+    @include transition(top, .3s);
+
+    span {
+      display: inline-block;
+      background-color: #fff;
+      height: 2px;
+      position: absolute;
+      bottom: 0;
+      transform-origin: left bottom;
+
+      &:nth-of-type(1) {
+        width: 100%;
+        transform: translateX(0px);
+        animation: scrollArrow1 4s ease-in 0s infinite normal none;
+      }
+      &:nth-of-type(2) {
+        width: 35%;
+        transform: rotate(-30deg) translateX(0px);
+        animation: scrollArrow2 4s ease-in 0s infinite normal none;
+      }
+      @keyframes scrollArrow1 {
+        0% {
+          transform: translateX(0px);
+          opacity: 1;
+        }
+        65% {
+          transform: translateX(0px);
+          opacity: 1;
+        }
+        70% {
+          transform: translateX(-50px);
+          opacity: 0;
+        }
+        95% {
+          transform: translateX(50px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0px);
+          opacity: 1;  
+        }
+      }
+      @keyframes scrollArrow2 {
+        0% {
+          transform: rotate(-30deg) translateX(0px);
+          opacity: 1;
+        }
+        65% {
+          transform: rotate(-30deg) translateX(0px);
+          opacity: 1;
+        }
+        70% {
+          transform: rotate(-30deg) translateX(-50px);
+          opacity: 0;
+        }
+        95% {
+          transform: rotate(-30deg) translateX(50px);
+          opacity: 0;
+        }
+        100% {
+          transform: rotate(-30deg) translateX(0px);
+          opacity: 1;  
+        }
+      }
+    }
+  }
+}
+#intro {
+  width: 100%;
+  height: auto;
+  padding: 100px 0 140px;
+  text-align: center;
+
+  @include bg-image("02");
+  background-image: linear-gradient(fade-out($c3, 0.22)), url(../img/furniture-shop-02.jpg);
+
+  position: relative;
+
+  h2 {
+    color: #fff;
+    letter-spacing: 1px;
+  }
+  p {
+    color: #fff;
+    display: block;
+    text-align: center;
+    margin: 3em auto 0;
+    line-height: 2;
+    font-size: $f9;
+    max-width: 750px;
+    width: 100%;
+    padding: 0 15px;
+
+    @media #{$mq-sp} {
+      font-size: calc(#{$f9} + (#{($f8 - $f9) / (1rem) * 16}) * (100vw - #{$bp-sp}px) / (#{$bp-tablet - $bp-sp}));
+    }
+    @media #{$mq-tablet} {
+      font-size: $f8;
+    }
+  }
+}
+#category {
+  background: $c1;
+  position: relative;
+  padding: 150px 0;
+
+  h2 {
+    display: none;
+  }
+
+  .category {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding-bottom: 100px;
+
+    &:last-of-type {
+      padding-bottom: 0;
+    }
+    
+    .category-about {
+      width: 100%;
+      height: auto;
+      background: #fff;
+      padding: 0 15px 3rem;
+
+      h3 {
+        transform: translateY(-50%);
+        color: $c4;
+
+        @extend %t-shadow;
+      }
+      p {
+        text-align: left;
+        display: block;
+        line-height: 2;
+        color: $c4;
+        margin-top: 3rem;
+        width: 100%;
+      }
+      .more {
+        margin-top: 3.75rem;
+        display: block;
+        width: 235px;
+        height: 45px;
+        position: relative;
+        color: $c4;
+        margin-left: auto;
+
+        @include transition((width, margin-left), .3s);
+
+
+        @media #{$mq-tablet} {
+          width: 275px;
+          margin-left: 0;
+        }
+
+        span {
+          display: inline-block;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          padding-left: 1em;
+          font-size: $f8;
+          font-weight: bold;
+          @include transition(padding-left, .3s);
+        }
+        
+        &::before {
+          content: "";
+          display: block;
+          height: 1px;
+          width: 100%;
+          background: $c4;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+
+          @include transition(background-color, .15s);
+        }
+
+        &::after {
+          content: "";
+          display: block;
+          height: 141%;
+          width: 1px;
+          background: $c4;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          transform-origin: right bottom;
+          transform: rotate(-45deg);
+
+          @include transition(background-color, .15s);
+        }
+
+        &:hover {
+          width: 245px * 1.1;
+
+          @media #{$mq-tablet} {
+            width: 275px * 1.1;
+          }
+
+          span {
+            padding-left: 1em * 1.5;
+          }
+
+          &::before, &::after {
+            background: $c6;
+          }
+        }
+      }
+    }
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      max-height: 200px;
+    }
+
+    @media #{$mq-tablet} {
+      height: 570px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      position: relative;
+      padding-bottom: 0;
+
+      .category-about {
+        width: calc(100% + #{$category-title-width / 2});
+        height: auto;
+        background: #fff;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 0 0 5rem;
+
+        p {
+          width: calc(100% - 15px);
+          max-width: calc(#{$bp-pc}px / 2 + #{$category-title-width} / 2 - 40px);
+        }
+
+        &.grid-left {
+          left: 0;
+          padding-right: 40px;
+          text-align: right;
+
+          p, .more {
+            margin-right: 0;
+            margin-left: auto;
+          }
+        }
+        &.grid-right {
+          right: 0;
+          padding-left: 40px;
+          text-align: left;
+
+          p, .more {
+            margin-right: auto;
+            margin-left: 0;
+          }
+        }
+      }
+
+      img {
+        max-height: none;
+      }
+
+      .grid-left {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+      }
+      .grid-right {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+      }
+    }
+  }
+}
+#news {
+  width: 100%;
+  height: auto;
+  position: relative;
+  padding: 100px 0;
+  
+  @include bg-image("07");
+  background-size: 150%;
+  background-position: center 0px;
+
+  h2 {
+    @include half-center-title;
+    @extend %t-shadow;
+
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+  dl {
+    background: #fff;
+    display: block;
+    max-width: 780px;
+    width: calc(100% - 30px);
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+    line-height: 1.5;
+
+    @media #{$mq-sp} {
+      padding-left: calc(15px + (100 - 15) * (100vw - #{$bp-sp}px) / (810 - #{$bp-sp}));
+      padding-right: calc(15px + (100 - 15) * (100vw - #{$bp-sp}px) / (810 - #{$bp-sp}));
+    }
+    @media screen and (min-width: 810px) {
+      padding-left: 100px;
+      padding-right: 100px;
+    }
+
+    dt {
+      display: inline-block;
+      width: 7em;
+      vertical-align: top;
+    }
+    dd {
+      display: inline-block;
+      padding-bottom: .7em;
+
+      @media #{$mq-sp} {
+        width: calc(100% - 7.5em);
+      }
+    }
+  }
+}
+#gallery {
+  margin: 150px 0;
+  position: relative;
+
+  @include bg-image("08");
+  background-image: linear-gradient(fade-out($c2, 0.22)), url(../img/furniture-shop-08.jpg);
+
+  h2 {
+    @include half-center-title;
+  }
+
+  #gallery-container {
+    max-width: #{$bp-pc}px;
+    width: calc(100% - 30px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 16px;
+    row-gap: 20px;
+    padding-bottom: calc(10px + 8em);
+
+    li {
+      width: 100%;
+      position: relative;
+
+      &::before {
+        content: "";
+        display: block;
+        width: 100%;
+        padding-top: 75%;
+      }
+      a {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 5em;
+        left: 0;
+        overflow: hidden;
+
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          @include transition(all, .3s);
+
+          &:hover {
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+  }
+  @media #{$mq-sp} {
+    #gallery-container {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: calc(16px + (30 - 16) * (100vw - #{$bp-sp}px) / #{$bp-pc - $bp-sp});
+      row-gap: calc(20px + (45 - 20) * (100vw - #{$bp-sp}px) / #{$bp-pc - $bp-sp});
+      padding-bottom: 10px;
+
+      li a.gallery-left {
+        top: 70px;
+      }
+      li a.gallery-center {
+        top: 70px;
+      }
+      li a.gallery-right {
+        top: 70px;
+      }
+    }
+  }
+  @media #{$mq-pc} {
+    #gallery-container {
+      column-gap: 30px;
+      row-gap: 45px;
+    }
+  }
+}
+footer {
+  width: 100%;
+  height: auto;
+  padding: 90px 0;
+  color: #fff;
+
+  @include bg-image("16");
+  background-image: linear-gradient(fade-out($c3, 0.22)), url(../img/furniture-shop-16.jpg);
+
+  #f-top {
+    @media #{$mq-tablet} {
+      @include flex-center-middle;
+    }
+
+    #f-logo {
+      @include logo;
+
+      width: 100%;
+      text-align: center;
+      margin-bottom: 1rem;
+
+      @media #{$mq-tablet} {
+        width: auto;
+        margin-bottom: 0;
+      }
+    }
+    address {
+      font-style: normal;
+      margin: 0 2.5em;
+      text-align: center;
+      color: #fff;
+      
+      p {
+        line-height: 1.5;
+
+        a {
+          color: #fff;
+        }
+      }
+    }
+    .access {
+      display: block;
+      width: 264px;
+      height: 54px;
+      background-color: #fff;
+      position: relative;
+      margin: 1rem auto 0;
+
+      @include transition(opacity, .15s);
+
+      @media #{$mq-tablet} {
+        margin: 0;
+      }
+
+      span {
+        color: #000;
+        font-weight: bold;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        @include transition(color, .15s);
+
+        .material-icons {
+          font-size: $f8;
+          vertical-align: bottom;
+          margin-right: 0.2em;
+        }
+      }
+
+      &:hover {
+        opacity: .8;
+
+        span{
+          color: $c6;
+        }
+      } 
+    }
+  }
+  nav {
+    margin: 65px auto 0;
+
+    ul {
+
+      @include flex-center-middle;
+
+      li {
+        padding: 0 1em;
+        border-left: 1px solid #fff;
+        line-height: 1.2;
+
+        width: calc((100% - 30px) / 3);
+        text-align: center;
+        margin-bottom: .5em;
+
+        &:nth-of-type(3n+1) {
+          border-left: none;
+        }
+
+        @media #{$mq-tablet} {
+          width: auto;
+          text-align: start;
+          margin-bottom: 0;
+
+          &:nth-of-type(3n+1){
+            border-left: 1px solid #fff;
+          }
+          &:first-of-type{
+            border-left: none;
+          }
+        }
+        
+        a {
+          color: #fff;
+          font-size: $f10;
+        }
+      }
+    }
+  }
+  #copyright {
+    margin: 60px auto 0;
+    text-align: center;
+    font-size: $f10;
+  }
+}
+

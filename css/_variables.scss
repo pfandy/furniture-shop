@@ -1,0 +1,103 @@
+// font-size
+// scale: 1.25
+$f1: 5.96rem;
+$f2: 4.768rem;
+$f3: 3.815rem;
+$f4: 3.052rem;
+$f5: 2.441rem;
+$f6: 1.953rem;
+$f7: 1.563rem;
+$f8: 1.25rem;
+$f9: 1rem;
+$f10: .8rem;
+$f11: .64rem;
+$f12: .512rem;
+
+
+// font-family
+// furniture shop
+$noto-sans: "Noto Sans JP",-apple-system,BlinkMacSystemFont,"ヒラギノ角ゴシック W3","Hiragino Sans",YuGothic,"メイリオ",Meiryo,sans-serif;
+
+// bp-spからbp-tabletまではpaddingが増加
+// bp-tabletからbp-pcまではpaddingが一定
+// bp-pc以降はwidthが一定でmarginがauto
+
+// break point
+$bp-sp: 450; // unit: px
+$bp-tablet: 768; // unit: px
+$bp-pc: 1140; // unit: px
+
+// media query
+$mq-sp: "screen and (min-width: #{$bp-sp}px)";
+$mq-tablet: "screen and (min-width: #{$bp-tablet}px)";
+$mq-pc: "screen and (min-width: #{$bp-pc}px)";
+
+// responsive margin @sp
+$container-marginL: 15; // unit: px
+$container-marginR: 15; // unit: px
+$container-marginLR: $container-marginR + $container-marginL;
+
+// responsive padding @pc
+$container-paddingL: .08; // unit: %
+$container-paddingR: .08; // unit: %
+
+// color
+// furniture shop
+$c1: #dae0e7; // base-color
+$c2: #7aa8d6; // blue-cover
+$c3: #000000; // black-cover
+$c4: #011b3f; // category text
+$c5: #2e302b; // others text
+$c6: rgb(184, 101, 0); // hover gold
+
+@mixin logo {
+  display: inline-block;
+  color: #fff;
+
+  &.logo {
+    font-size: calc(30px + (40 - 30) * (100vw - 320px) / (450 - 320));
+    line-height: 1;
+    font-weight: bold;
+
+    @media screen and (min-width: 450px) {
+      font-size: 40px;
+    }
+  }
+}
+
+$imgPathBefore: "../img/furniture-shop-";
+$imgPathAfter: ".jpg";
+
+@mixin bg-image($imgNo) {
+  background-image: url(#{$imgPathBefore + $imgNo + $imgPathAfter});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+$category-title-width: 360px;
+
+@mixin half-center-title {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin flex-center-middle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+%t-shadow {
+  text-shadow: 0 0 3px #fff;
+}
+
+@mixin transition($property, $duration, $timingFunc: linear, $delay: 0s) {
+  transition-property: $property;
+  transition-duration: $duration;
+  transition-timing-function: $timingFunc;
+  transition-delay: $delay;
+}
